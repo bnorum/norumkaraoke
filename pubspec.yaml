@@ -45,6 +45,7 @@ dependencies:
   zwidget: ^0.0.2
   enough_ascii_art: ^1.1.0
   google_fonts: ^6.1.0
+  video_player: ^2.7.2
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/beach.jpg
+    - assets/video/waves.mp4
+    - assets/video/xancake.mp4
     - assets/ascii/smslant.flf
     - assets/ascii/basic.flf
     - assets/fonts/CONSOLA.TTF

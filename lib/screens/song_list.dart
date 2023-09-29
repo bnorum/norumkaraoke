@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../title_card.dart';
+import '../karaoke.dart';
 
 const primaryColor = Colors.cyan;
 class SongList extends StatefulWidget {
@@ -24,6 +24,8 @@ class SongListState extends State<SongList> {
                      const Song(title:"Hotel California", artist:"Eagles"),
                      const Song(title:"Diamonds from Sierra Leone",artist:"Kanye West")];
 
+ 
+ 
 
   Widget _buildList() {
     return ListView.builder(
@@ -33,6 +35,7 @@ class SongListState extends State<SongList> {
         final index = item ~/ 2;
 
         if (index < _songList.length) {return _buildRow(_songList[index]);}
+        return null;
       },
     );
   } //_buildlist
@@ -62,7 +65,7 @@ class SongListState extends State<SongList> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return titleCard("Brady Norum", s.title, s.artist);
+          return KaraokeState(s).build(context);
         }
       )
     );
