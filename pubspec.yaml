@@ -42,6 +42,8 @@ dependencies:
   just_audio_background: ^0.0.1-beta.10
   rxdart: ^0.27.7
   flutter_lyric: ^2.0.4+6
+  zwidget: ^0.0.2
+  enough_ascii_art: ^1.1.0
 
 dev_dependencies:
   flutter_test:
