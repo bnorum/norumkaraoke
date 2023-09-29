@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import './song_list.dart';
+import 'screens/song_list.dart';
+import 'package:flutter/services.dart';
 void main() { runApp(MyApp());}
 
 
@@ -8,8 +9,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+    ]);
     return MaterialApp( 
-      theme: ThemeData(primaryColor: Colors.cyan),
+      theme: ThemeData(primaryColor: Colors.cyan, fontFamily: 'consolas'), 
       home: SongList()
     );
   } //build

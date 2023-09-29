@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
-import "dart:math";
-
-
+import '../title_card.dart';
 
 const primaryColor = Colors.cyan;
 class SongList extends StatefulWidget {
@@ -10,7 +7,7 @@ class SongList extends StatefulWidget {
 
   @override
   SongListState createState() => SongListState();
-}//randomwords class
+}
 
 class Song {
   const Song({required this.title, required this.artist});
@@ -23,9 +20,9 @@ class Song {
 }
 
 class SongListState extends State<SongList> {
-  final _songList = [Song(title:"Margaritaville", artist:"Jimmy Buffet"),
-                     Song(title:"Hotel California", artist:"Eagles"),
-                     Song(title:"Diamonds from Sierra Leone",artist:"Kanye West")];
+  final _songList = [const Song(title:"Margaritaville", artist:"Jimmy Buffet"),
+                     const Song(title:"Hotel California", artist:"Eagles"),
+                     const Song(title:"Diamonds from Sierra Leone",artist:"Kanye West")];
 
 
   Widget _buildList() {
@@ -35,23 +32,19 @@ class SongListState extends State<SongList> {
         if(item.isOdd) return const Divider();
         final index = item ~/ 2;
 
-       
-        return _buildRow(_songList[index]);
+        if (index < _songList.length) {return _buildRow(_songList[index]);}
       },
     );
   } //_buildlist
   
   
   Widget _buildRow(Song s){
-    
-
     return ListTile(
       title: Text(s.getTitle(), 
         style: const TextStyle(fontSize: 18.0)
         ),
-      trailing: Text(s.getArtist(), 
-        style: const TextStyle(fontSize: 18.0)
-        ),
+      trailing: const Icon(Icons.arrow_forward_ios_rounded),
+      onTap: () { pushKaraoke(s); }
     );
 
   } //_buildrow
@@ -62,9 +55,17 @@ class SongListState extends State<SongList> {
         centerTitle: true,
         title: const Text('Norum_Karaoke'),
         ),
-        
       body: _buildList()
     );
   }//build
+  void pushKaraoke(Song s) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return titleCard("Brady Norum", s.title, s.artist);
+        }
+      )
+    );
 
+  }
 }

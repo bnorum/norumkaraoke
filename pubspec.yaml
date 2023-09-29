@@ -44,6 +44,7 @@ dependencies:
   flutter_lyric: ^2.0.4+6
   zwidget: ^0.0.2
   enough_ascii_art: ^1.1.0
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -69,6 +70,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/beach.jpg
+    - assets/ascii/smslant.flf
+    - assets/ascii/basic.flf
+    - assets/fonts/CONSOLA.TTF
     - assets/music/margaritaville.mp3
     - assets/lyrics/margaritaville.lrc
 
@@ -86,7 +91,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+    - family: consolas
+      fonts:
+        - asset: assets/fonts/CONSOLA.TTF
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf
