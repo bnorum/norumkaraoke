@@ -17,17 +17,23 @@ class Song {
   String getArtist() {return artist;}
   String getTitle() {return title;}
 
+  int CompareTo(Song other) {
+    return title.compareTo(other.title);
+  }
+
 }
 
 class SongListState extends State<SongList> {
   final _songList = [const Song(title:"Margaritaville", artist:"Jimmy Buffet"),
                      const Song(title:"Hotel California", artist:"Eagles"),
-                     const Song(title:"Diamonds from Sierra Leone",artist:"Kanye West")];
+                     const Song(title:"Diamonds from Sierra Leone",artist:"Kanye West"),
+                     const Song(title:"Be Nice 2 Me",artist:"Bladee")];
 
  
  
 
   Widget _buildList() {
+    _songList.sort((a,b) => a.CompareTo(b));
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemBuilder: (context, item) {
@@ -46,6 +52,7 @@ class SongListState extends State<SongList> {
       title: Text(s.getTitle(), 
         style: const TextStyle(fontSize: 18.0)
         ),
+      subtitle: Text(s.getArtist()),
       trailing: const Icon(Icons.arrow_forward_ios_rounded),
       onTap: () { pushKaraoke(s); }
     );
