@@ -1,7 +1,7 @@
 ### norum karaoke ###
 
-this is an app i am making for my mobile app development class "CSC-185" at hofstra university
+This is an app I am making for my mobile app development class "CSC-185" at Hofstra University.
 
-it is a karaoke app which allows the user to create .lrc files for their songs
+It is both an karaoke app and a love letter to the beautiful ASCII art of my youth.
 
-it is a work in progress..
+
