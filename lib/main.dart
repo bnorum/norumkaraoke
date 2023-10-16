@@ -5,19 +5,23 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 import 'dart:ui';
 import 'ascii_builder.dart';
+import 'screens/karaoke.dart';
 void main() { runApp(MyApp());}
 
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
+    
     SystemChrome.setPreferredOrientations([
         DeviceOrientation.landscapeLeft,
         DeviceOrientation.landscapeRight,
     ]);
     return MaterialApp( 
+      navigatorKey: navigatorKey,
       theme: DarkGreenTheme.themeData, 
       title: 'Splash Screen',
       home: SplashScreen(),

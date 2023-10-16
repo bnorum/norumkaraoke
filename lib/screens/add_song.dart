@@ -13,6 +13,11 @@ class AddSong extends StatefulWidget {
 }
 
 class AddSongState extends State<AddSong> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   var songTitle = "";
   var songArtist = "";
 

@@ -3,9 +3,10 @@ import 'dart:ui';
 import 'song_list.dart';
 import '../ascii_builder.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:zwidget/zwidget.dart';
-
+import 'package:flutter_lyric/lyrics_reader.dart';
+import 'package:audioplayers/audioplayers.dart';
+import 'marglyrics.dart';
 
 
 
@@ -14,25 +15,27 @@ class Karaoke extends StatefulWidget {
   const Karaoke({super.key});
 
   @override
-  KaraokeState createState() => KaraokeState(Song(title:"",artist:"",imgPath:"assets/images/margaritaville.jpg"));
+  KaraokeState createState() => KaraokeState(const Song(title:"Song 1",artist:"Artist 1",imgPath:"assets/images/margaritaville.jpg"));
   
 }
 
 
 
-class KaraokeState extends State<Karaoke>{
-  Song _song = Song(title:"",artist:"",imgPath:"");
+class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
+
+
+  Song _song = const Song(title:"",artist:"",imgPath:"");
   KaraokeState(Song song) {
     _song = song;
   }
 
   Widget build(BuildContext context) {
-    return titleCard("Brady Norum", _song.title, _song.artist);
+   // return titleCard("Brady Norum", _song.title, _song.artist);
+    return Scaffold(
+      body: buildReaderWidget());
   }//build
-
   
-
-  //build ascii
+  //PLANS: ***FIX STATEFUL NESS OF THIS WIDGET***, FIX LYRICS NOT MOVING PAST FIRST BAR.
 
   Widget topTitle(String name) {
     return ZWidget.backwards(
@@ -53,27 +56,18 @@ class KaraokeState extends State<Karaoke>{
       depth: 32,
     );
   }
-
-
+ 
   Widget titleCard(String playerName, String songName, String artistName) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color.fromARGB(195, 255, 255, 255)),
-        backgroundColor: Color.fromARGB(0, 0, 0, 0),
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         elevation: 0,
         title: Text(songName, style: const TextStyle(color: Color.fromARGB(70, 255, 255, 255))
       ),
       ),
-      body: DecoratedBox(
-        decoration: const BoxDecoration(
-          
-          image: DecorationImage(
-            colorFilter: ColorFilter.mode(Color.fromARGB(176, 0, 0, 0), BlendMode.luminosity),
-            image: AssetImage("assets/images/beach.jpg"), fit: BoxFit.cover)
-            
-        ),
-        child: Column( 
+      body:  Column( 
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children:[
@@ -98,7 +92,70 @@ class KaraokeState extends State<Karaoke>{
             ),
           ]
         )
+      );
+    
+  }//titlecard
+
+
+
+  List<Widget> buildBG() {
+    return [
+      Positioned.fill(
+        child: Image.asset(
+          "assets/images/beach.jpg",
+          fit: BoxFit.cover,
+        ),
+      ),
+      Positioned.fill(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            color: Colors.black.withOpacity(0.3),
+          ),
+        ),
       )
+    ];
+  }
+
+
+  double sliderProgress = 0;
+  int playProgress = 0;
+  var lyricAlign = LyricAlign.CENTER;
+  var highlightDirection = HighlightDirection.LTR;
+  var playing = true;
+  AudioPlayer? audioPlayer;
+  bool isTap = false;
+  bool useEnhancedLrc = false;
+
+  var lyricUI = UINetease();
+  var lyricModel = LyricsModelBuilder.create()
+      .bindLyricToMain(normalLyric)
+      .getModel();
+  
+
+  Stack buildReaderWidget() {
+    if (audioPlayer == null) {
+    audioPlayer = AudioPlayer()..play(AssetSource("music/margaritaville.mp3"));
+    } 
+    return Stack(
+      children: [
+        ...buildBG(),
+        LyricsReader(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          model: lyricModel,
+          lyricUi: lyricUI,
+          playing: playing,
+          position: playProgress,
+          size: Size(double.infinity, MediaQuery.of(context).size.height),
+          emptyBuilder: () => Center(
+            child: Text(
+              "No lyrics",
+              style: lyricUI.getOtherMainTextStyle(),
+            ),
+          ),
+          
+        )
+      ],
     );
   }
 }

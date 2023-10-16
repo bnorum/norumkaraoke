@@ -98,6 +98,8 @@ class SongListState extends State<SongList> {
     );
 
   }
+
+  //DONT DO THIS!!!! 
   void pushAddSong() {
     Navigator.of(context).push(
       MaterialPageRoute(
