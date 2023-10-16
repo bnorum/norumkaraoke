@@ -12,7 +12,7 @@ void main() { runApp(MyApp());}
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     
@@ -30,9 +30,13 @@ class MyApp extends StatelessWidget {
   } //build
 } //myapp class
 
+
+
 class SplashScreen extends StatefulWidget {
+   SplashScreen({Key? key}) : super(key: key);
   @override
   SplashScreenState createState() => SplashScreenState();
+ 
 }
 class SplashScreenState extends State<SplashScreen> {
 
@@ -40,7 +44,7 @@ class SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 1),()=>Navigator.pushReplacement(context,MaterialPageRoute(builder:(context) => const SongList())));
+    Timer(Duration(seconds: 1),()=>Navigator.pushReplacement(context,MaterialPageRoute(builder:(context) => SongList())));
   }
 
   @override

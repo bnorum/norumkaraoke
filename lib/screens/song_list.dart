@@ -88,8 +88,9 @@ class SongListState extends State<SongList> {
       body: _buildList()
     );
   }//build
+
   void pushKaraoke(Song s) {
-    Navigator.of(context).push(
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (BuildContext context) {
           return KaraokeState(s).build(context);
@@ -98,13 +99,11 @@ class SongListState extends State<SongList> {
     );
 
   }
-
-  //DONT DO THIS!!!! 
-  void pushAddSong() {
-    Navigator.of(context).push(
+  void pushAddSong() { 
+    Navigator.of(context).pushReplacement(
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return AddSongState().build(context);
+          return AddSongState().build(context); 
         }
       )
     );

@@ -12,7 +12,7 @@ import 'marglyrics.dart';
 
 
 class Karaoke extends StatefulWidget {
-  const Karaoke({super.key});
+   Karaoke({Key? key}) : super(key: key);
 
   @override
   KaraokeState createState() => KaraokeState(const Song(title:"Song 1",artist:"Artist 1",imgPath:"assets/images/margaritaville.jpg"));
@@ -22,7 +22,9 @@ class Karaoke extends StatefulWidget {
 
 
 class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
-
+  void initState() {
+    super.initState();
+  }
 
   Song _song = const Song(title:"",artist:"",imgPath:"");
   KaraokeState(Song song) {
@@ -35,7 +37,6 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
       body: buildReaderWidget());
   }//build
   
-  //PLANS: ***FIX STATEFUL NESS OF THIS WIDGET***, FIX LYRICS NOT MOVING PAST FIRST BAR.
 
   Widget topTitle(String name) {
     return ZWidget.backwards(
@@ -154,7 +155,9 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
             ),
           ),
           
-        )
+        ),
+        
+        
       ],
     );
   }
