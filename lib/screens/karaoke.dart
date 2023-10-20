@@ -34,7 +34,14 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
    // return titleCard("Brady Norum", _song.title, _song.artist);
     return Scaffold(
-      body: buildReaderWidget());
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        iconTheme: const IconThemeData(color: Color.fromARGB(195, 255, 255, 255)),
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        elevation: 0,
+        title: Text(_song.title, style: const TextStyle(color: Color.fromARGB(70, 255, 255, 255))),
+      ),
+      body: Stack(children: [...buildBG(), titleCard("Brady Norum",_song.title, _song.artist)],));
   }//build
   
 
@@ -59,16 +66,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
   }
  
   Widget titleCard(String playerName, String songName, String artistName) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Color.fromARGB(195, 255, 255, 255)),
-        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
-        elevation: 0,
-        title: Text(songName, style: const TextStyle(color: Color.fromARGB(70, 255, 255, 255))
-      ),
-      ),
-      body:  Column( 
+    return Column( 
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children:[
@@ -92,7 +90,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
               )
             ),
           ]
-        )
+        
       );
     
   }//titlecard
@@ -135,14 +133,12 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
   
 
   Stack buildReaderWidget() {
-    if (audioPlayer == null) {
-    audioPlayer = AudioPlayer()..play(AssetSource("music/margaritaville.mp3"));
-    } 
+    audioPlayer ??= AudioPlayer()..play(AssetSource("music/margaritaville.mp3")); 
     return Stack(
       children: [
         ...buildBG(),
         LyricsReader(
-          padding: EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           model: lyricModel,
           lyricUi: lyricUI,
           playing: playing,

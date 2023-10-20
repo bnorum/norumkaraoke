@@ -40,7 +40,7 @@ class SongListState extends State<SongList> {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemBuilder: (context, item) {
-        if(item.isOdd) return const Divider();
+        if(item.isOdd) return Text("---------------------------------------------------------------------------");
         final index = item ~/ 2;
 
         if (index < _songList.length) {return _buildRow(_songList[index]);}
