@@ -41,7 +41,8 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
         elevation: 0,
         title: Text(_song.title, style: const TextStyle(color: Color.fromARGB(70, 255, 255, 255))),
       ),
-      body: Stack(children: [...buildBG(), titleCard("Brady Norum",_song.title, _song.artist)],));
+      //body: Stack(children: [...buildBG(), titleCard("Brady Norum",_song.title, _song.artist)],));
+      body: Stack(children: [...buildBG(), buildReaderWidget()],));
   }//build
   
 

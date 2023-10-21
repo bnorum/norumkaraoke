@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:norumkaraoke/theme.dart';
 import 'karaoke.dart';
 import 'add_song.dart';
+import 'dart:ui'; 
 
-class SongList extends StatefulWidget {
-  const SongList({super.key});
 
-  @override
-  SongListState createState() => SongListState();
-}
 
 class Song {
   const Song({required this.title, required this.artist, required this.imgPath});
@@ -26,15 +22,21 @@ class Song {
 
 }
 
+class SongList extends StatefulWidget {
+  const SongList({super.key});
+
+  @override
+  SongListState createState() => SongListState();
+}
+
+
 class SongListState extends State<SongList> {
   final _songList = [const Song(title:"Margaritaville", artist:"Jimmy Buffet", imgPath:'assets/images/margaritaville.jpg'),
                      const Song(title:"Hotel California", artist:"Eagles", imgPath:'assets/images/hotelcalifornia.jpg'),
                      const Song(title:"Diamonds from Sierra Leone",artist:"Kanye West", imgPath:'assets/images/diamondsfromsierraleone.jpg'),
-                     const Song(title:"Be Nice 2 Me",artist:"Bladee", imgPath:'assets/images/icedancer.jpg')];
-
- 
- 
-
+                     const Song(title:"Be Nice 2 Me",artist:"Bladee", imgPath:'assets/images/icedancer.jpg'),
+                     const Song(title:"Creep",artist:"Radiohead", imgPath:'assets/images/creep.jpg')];
+  
   Widget _buildList() {
     _songList.sort((a,b) => a.CompareTo(b));
     return ListView.builder(
@@ -90,7 +92,7 @@ class SongListState extends State<SongList> {
   }//build
 
   void pushKaraoke(Song s) {
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) {
           return KaraokeState(s).build(context);
@@ -100,7 +102,7 @@ class SongListState extends State<SongList> {
 
   }
   void pushAddSong() { 
-    Navigator.of(context).pushReplacement(
+    Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) {
           return AddSongState().build(context); 
