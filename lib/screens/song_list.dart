@@ -71,7 +71,7 @@ class SongListState extends State<SongList> {
           ),
         ),
       trailing: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white),
-      onTap: () { pushKaraoke(s); }
+      onTap: () { pushKaraoke(); }
     );
 
   } //_buildrow
@@ -91,11 +91,11 @@ class SongListState extends State<SongList> {
     );
   }//build
 
-  void pushKaraoke(Song s) {
+  void pushKaraoke() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (BuildContext context) {
-          return KaraokeState(s).build(context);
+          return KaraokeState().build(context);
         }
       )
     );

@@ -11,8 +11,16 @@ void main() { runApp(MyApp());}
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+
+class MyApp extends StatefulWidget {
+  @override
+  MyAppState createState() {
+    return new MyAppState();
+
+  }
+
+}
+class MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     
@@ -23,7 +31,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp( 
       navigatorKey: navigatorKey,
       theme: DarkGreenTheme.themeData, 
-      title: 'Splash Screen',
+      title: 'Norum_Karaoke',
       home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );

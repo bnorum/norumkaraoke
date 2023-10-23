@@ -6,31 +6,21 @@ import 'package:flutter/material.dart';
 import 'package:zwidget/zwidget.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'marglyrics.dart';
+import 'creeplyrics.dart';
 
 
 
 
 class Karaoke extends StatefulWidget {
-   Karaoke({Key? key}) : super(key: key);
-
   @override
-  KaraokeState createState() => KaraokeState(const Song(title:"Song 1",artist:"Artist 1",imgPath:"assets/images/margaritaville.jpg"));
-  
+  KaraokeState createState() => KaraokeState();
 }
 
 
 
 class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
-  void initState() {
-    super.initState();
-  }
-
   Song _song = const Song(title:"",artist:"",imgPath:"");
-  KaraokeState(Song song) {
-    _song = song;
-  }
-
+  
   Widget build(BuildContext context) {
    // return titleCard("Brady Norum", _song.title, _song.artist);
     return Scaffold(
@@ -42,10 +32,10 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
         title: Text(_song.title, style: const TextStyle(color: Color.fromARGB(70, 255, 255, 255))),
       ),
       //body: Stack(children: [...buildBG(), titleCard("Brady Norum",_song.title, _song.artist)],));
-      body: Stack(children: [...buildBG(), buildReaderWidget()],));
+      body: SingleChildScrollView(child:Stack(children: [...buildBG(), buildReaderAndPlay()])));
   }//build
   
-
+  //ascii title stuff:
   Widget topTitle(String name) {
     return ZWidget.backwards(
       midChild:buildASCII(name, const TextStyle( color: Colors.white,fontWeight: FontWeight.bold, fontFeatures: [FontFeature.tabularFigures()]), 'assets/ascii/basic.flf'),
@@ -95,7 +85,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
       );
     
   }//titlecard
-
+  //ascii title stuff
 
 
   List<Widget> buildBG() {
@@ -120,9 +110,10 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
 
   double sliderProgress = 0;
   int playProgress = 0;
+  double max_value = 211658;
   var lyricAlign = LyricAlign.CENTER;
   var highlightDirection = HighlightDirection.LTR;
-  var playing = true;
+  var playing = false;
   AudioPlayer? audioPlayer;
   bool isTap = false;
   bool useEnhancedLrc = false;
@@ -134,7 +125,6 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
   
 
   Stack buildReaderWidget() {
-    audioPlayer ??= AudioPlayer()..play(AssetSource("music/margaritaville.mp3")); 
     return Stack(
       children: [
         ...buildBG(),
@@ -157,5 +147,95 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
         
       ],
     );
+  }
+
+  List<Widget> buildPlayControl() {
+    return [
+      Container(
+        height: 20,
+      ),
+      if (sliderProgress < max_value)
+        Slider(
+          min: 0,
+          max: max_value,
+          label: sliderProgress.toString(),
+          value: sliderProgress,
+          activeColor: Colors.blueGrey,
+          inactiveColor: Colors.blue,
+          onChanged: (double value) {
+            setState(() {
+              sliderProgress = value;
+            });
+          },
+          onChangeStart: (double value) {
+            isTap = true;
+          },
+          onChangeEnd: (double value) {
+            isTap = false;
+            setState(() {
+              playProgress = value.toInt();
+            });
+            audioPlayer?.seek(Duration(milliseconds: value.toInt()));
+          },
+        ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+              onPressed: () async {
+                if (audioPlayer == null) {
+                  audioPlayer = AudioPlayer()..play(AssetSource("music/creep.mp3"));
+                  setState(() {
+                    playing = true;
+                  });
+                  audioPlayer?.onDurationChanged.listen((Duration event) {
+                    setState(() {
+                      max_value = event.inMilliseconds.toDouble();
+                    });
+                  });
+                  audioPlayer?.onPositionChanged.listen((Duration event) {
+                    if (isTap) return;
+                    setState(() {
+                      sliderProgress = event.inMilliseconds.toDouble();
+                      playProgress = event.inMilliseconds;
+                    });
+                  });
+
+                  audioPlayer?.onPlayerStateChanged.listen((PlayerState state) {
+                    setState(() {
+                      playing = state == PlayerState.playing;
+                    });
+                  });
+                } else {
+                  audioPlayer?.resume();
+                }
+              },
+              child: Text("Play")),
+          Container(
+            width: 10,
+          ),
+          TextButton(
+              onPressed: () async {
+                audioPlayer?.pause();
+              },
+              child: Text("Pause")),
+          Container(
+            width: 10,
+          ),
+          TextButton(
+              onPressed: () async {
+                audioPlayer?.stop();
+                audioPlayer = null;
+              },
+              child: Text("Stop")),
+        ],
+      ),
+    ];
+  }
+
+
+  Widget buildReaderAndPlay() {
+    return Column(children:[buildReaderWidget(), ...buildPlayControl()]);
+
   }
 }
