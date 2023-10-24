@@ -25,20 +25,6 @@ class norumLyricUI extends LyricUI {
       this.highlight = true,
       this.highlightDirection = HighlightDirection.LTR});
 
-  norumLyricUI.clone(norumLyricUI uiNetease)
-      : this(
-          defaultSize: uiNetease.defaultSize,
-          defaultExtSize: uiNetease.defaultExtSize,
-          otherMainSize: uiNetease.otherMainSize,
-          bias: uiNetease.bias,
-          lineGap: uiNetease.lineGap,
-          inlineGap: uiNetease.inlineGap,
-          lyricAlign: uiNetease.lyricAlign,
-          lyricBaseLine: uiNetease.lyricBaseLine,
-          highlight: uiNetease.highlight,
-          highlightDirection: uiNetease.highlightDirection,
-        );
-
   @override
   TextStyle getPlayingExtTextStyle() =>
       TextStyle(color: Colors.grey[300], fontSize: defaultExtSize, fontFamily: 'consolas');

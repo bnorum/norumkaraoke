@@ -37,6 +37,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
       body: Stack(children: [...buildBG(), buildReaderAndPlay()]));
   }//build
   
+
   //ascii title stuff:
   Widget topTitle(String name) {
     return ZWidget.backwards(
@@ -57,35 +58,30 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
       depth: 32,
     );
   }
- 
   Widget titleCard(String playerName, String songName, String artistName) {
     return Column( 
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children:[
-            topTitle(playerName),
-            const Text('versus', 
-              style:TextStyle(
-                fontSize:18, 
-                color:Colors.white,
-                fontWeight: FontWeight.bold,
-                fontFeatures: [
-                  FontFeature.tabularFigures(),
-                ]
-              ),
-              ),
-            bottomTitle(songName),
-            Text('by ${artistName}', 
-              style:const TextStyle(
-                fontSize:18, 
-                color:Colors.white, 
-                fontWeight: FontWeight.bold
-              )
-            ),
-          ]
-        
-      );
-    
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children:[
+        topTitle(playerName),
+        const Text('versus', 
+          style:TextStyle(
+            fontSize:18, 
+            color:Colors.white,
+            fontWeight: FontWeight.bold,
+            fontFeatures: [FontFeature.tabularFigures()]
+          ),
+        ),
+        bottomTitle(songName),
+        Text('by ${artistName}', 
+          style:const TextStyle(
+            fontSize:18, 
+            color:Colors.white, 
+            fontWeight: FontWeight.bold
+          )
+        ),
+      ] 
+    );
   }//titlecard
   //ascii title stuff
 
@@ -203,7 +199,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
                   controlsOpacity = 0;
                 }
               },
-              icon: Opacity(opacity: controlsOpacity, child:Icon(Icons.play_arrow, color: Colors.white))),
+              icon: Opacity(opacity: controlsOpacity, child:const Icon(Icons.play_arrow, color: Colors.white))),
           Container(
             width: 10,
           ),
@@ -225,7 +221,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
         ],
       ),
     ];
-  }
+  }//buildPlayControl
 
 
   Widget buildReaderAndPlay() {
