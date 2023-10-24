@@ -2,6 +2,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'song_list.dart';
 import '../ascii_builder.dart';
+import '../lyricstyle.dart'; 
 import 'package:flutter/material.dart';
 import 'package:zwidget/zwidget.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
@@ -24,6 +25,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
    // return titleCard("Brady Norum", _song.title, _song.artist);
     return Scaffold(
+      
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         iconTheme: const IconThemeData(color: Color.fromARGB(195, 255, 255, 255)),
@@ -32,7 +34,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
         title: Text(_song.title, style: const TextStyle(color: Color.fromARGB(70, 255, 255, 255))),
       ),
       //body: Stack(children: [...buildBG(), titleCard("Brady Norum",_song.title, _song.artist)],));
-      body: SingleChildScrollView(child:Stack(children: [...buildBG(), buildReaderAndPlay()])));
+      body: Stack(children: [...buildBG(), buildReaderAndPlay()]));
   }//build
   
   //ascii title stuff:
@@ -118,16 +120,14 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
   bool isTap = false;
   bool useEnhancedLrc = false;
 
-  var lyricUI = UINetease();
+  var lyricUI = norumLyricUI(lineGap:2000);
   var lyricModel = LyricsModelBuilder.create()
       .bindLyricToMain(normalLyric)
       .getModel();
   
 
-  Stack buildReaderWidget() {
-    return Stack(
-      children: [
-        ...buildBG(),
+  Widget buildReaderWidget() {
+    return 
         LyricsReader(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           model: lyricModel,
@@ -135,33 +135,24 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
           playing: playing,
           position: playProgress,
           size: Size(double.infinity, MediaQuery.of(context).size.height),
-          emptyBuilder: () => Center(
-            child: Text(
-              "No lyrics",
-              style: lyricUI.getOtherMainTextStyle(),
-            ),
+          emptyBuilder: () => const Center(
+            child: Text("No lyrics"),
           ),
           
-        ),
-        
-        
-      ],
-    );
+        );
   }
 
+  var controlsOpacity = .45;
   List<Widget> buildPlayControl() {
     return [
-      Container(
-        height: 20,
-      ),
       if (sliderProgress < max_value)
-        Slider(
+        Opacity(opacity:controlsOpacity,child:Slider(
           min: 0,
           max: max_value,
           label: sliderProgress.toString(),
           value: sliderProgress,
-          activeColor: Colors.blueGrey,
-          inactiveColor: Colors.blue,
+          activeColor: Colors.white,
+          inactiveColor: Colors.white,
           onChanged: (double value) {
             setState(() {
               sliderProgress = value;
@@ -177,16 +168,17 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
             });
             audioPlayer?.seek(Duration(milliseconds: value.toInt()));
           },
-        ),
+        )),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextButton(
+          IconButton(
               onPressed: () async {
                 if (audioPlayer == null) {
                   audioPlayer = AudioPlayer()..play(AssetSource("music/creep.mp3"));
                   setState(() {
                     playing = true;
+                    controlsOpacity = 0;
                   });
                   audioPlayer?.onDurationChanged.listen((Duration event) {
                     setState(() {
@@ -208,26 +200,28 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
                   });
                 } else {
                   audioPlayer?.resume();
+                  controlsOpacity = 0;
                 }
               },
-              child: Text("Play")),
+              icon: Opacity(opacity: controlsOpacity, child:Icon(Icons.play_arrow, color: Colors.white))),
           Container(
             width: 10,
           ),
-          TextButton(
+          IconButton(
               onPressed: () async {
                 audioPlayer?.pause();
+                controlsOpacity = .45;
               },
-              child: Text("Pause")),
+              icon: Opacity(opacity:.45, child:Icon(Icons.pause, color: Colors.white))),
           Container(
             width: 10,
           ),
-          TextButton(
+          IconButton(
               onPressed: () async {
                 audioPlayer?.stop();
                 audioPlayer = null;
               },
-              child: Text("Stop")),
+              icon: Opacity(opacity:controlsOpacity,child:Icon(Icons.stop, color: Colors.white))),
         ],
       ),
     ];
@@ -235,7 +229,6 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
 
 
   Widget buildReaderAndPlay() {
-    return Column(children:[buildReaderWidget(), ...buildPlayControl()]);
-
+    return Column(children:[Container(height: MediaQuery.of(context).size.height * .60, child:buildReaderWidget()), ...buildPlayControl()]);
   }
 }
