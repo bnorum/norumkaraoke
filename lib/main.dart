@@ -32,7 +32,7 @@ class MyAppState extends State<MyApp> {
       navigatorKey: navigatorKey,
       theme: DarkGreenTheme.themeData, 
       title: 'Norum_Karaoke',
-      home: Karaoke(),
+      home: SplashScreen(),
       debugShowCheckedModeBanner: false,
     );
   } //build
