@@ -102,9 +102,7 @@ class SongListState extends State<SongList> {
   void pushAddSong() { 
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (BuildContext context) {
-          return AddSongState().build(context); 
-        }
+        builder: (context) => AddSong()
       )
     );
 
