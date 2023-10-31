@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:zwidget/zwidget.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'creeplyrics.dart';
+import '../creeplyrics.dart';
 import '../database.dart';
 
 
@@ -21,6 +21,7 @@ class Karaoke extends StatefulWidget {
 
 class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
   //empty song... scary
+
   Song _song = const Song(title:"",artist:"",imgPath:"",lyrics: "",songPath: "");
   
   Widget build(BuildContext context) {
@@ -29,6 +30,14 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
       
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: TextButton(
+          child: Text("<", style: TextStyle(color: Colors.white, fontSize:24)),
+          onPressed: () {
+            audioPlayer?.stop();
+            audioPlayer = null;
+            Navigator.pop(context);
+          },
+        ),
         iconTheme: const IconThemeData(color: Color.fromARGB(195, 255, 255, 255)),
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         elevation: 0,
@@ -169,10 +178,13 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
+          TextButton(
+              style: ButtonStyle(
+                splashFactory: NoSplash.splashFactory
+              ),
               onPressed: () async {
-                if (audioPlayer == null) {
-                  audioPlayer = AudioPlayer()..play(AssetSource("music/creep.mp3"));
+                if (audioPlayer == null  && mounted) {
+                  audioPlayer = AudioPlayer()..play(AssetSource("music/creepi.mp3"));
                   setState(() {
                     playing = true;
                     controlsOpacity = 0;
@@ -200,25 +212,31 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
                   controlsOpacity = 0;
                 }
               },
-              icon: Opacity(opacity: controlsOpacity, child:const Icon(Icons.play_arrow, color: Colors.white))),
+              child: Opacity(opacity: controlsOpacity, child:const Text("|>", style: TextStyle(fontWeight:FontWeight.bold ,color: Colors.white)))),
           Container(
             width: 10,
           ),
-          IconButton(
+          TextButton(
+              style: ButtonStyle(
+                splashFactory: NoSplash.splashFactory
+              ),
               onPressed: () async {
                 audioPlayer?.pause();
                 controlsOpacity = .45;
               },
-              icon: Opacity(opacity:.45, child:Icon(Icons.pause, color: Colors.white))),
+              child: Opacity(opacity: .40, child:const Text("||", style: TextStyle(fontWeight:FontWeight.bold ,color: Colors.white)))),
           Container(
             width: 10,
           ),
-          IconButton(
+          TextButton(
+              style: ButtonStyle(
+                splashFactory: NoSplash.splashFactory
+              ),
               onPressed: () async {
                 audioPlayer?.stop();
                 audioPlayer = null;
               },
-              icon: Opacity(opacity:controlsOpacity,child:Icon(Icons.stop, color: Colors.white))),
+              child: Opacity(opacity: controlsOpacity, child:const Text("■", style: TextStyle(fontWeight:FontWeight.bold ,color: Colors.white)))),
         ],
       ),
     ];

@@ -104,5 +104,9 @@ class Song {
     return title.compareTo(other.title);
   }
 
+  String getImgPath() {
+    return imgPath;
+  }
+
 }
 
