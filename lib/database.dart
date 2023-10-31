@@ -9,10 +9,10 @@ main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   final database = openDatabase(
-    join(await getDatabasesPath(), 'song_database.db'),
+    join(await getDatabasesPath(), 'songs_database.db'),
     onCreate: (db, version) {
       return db.execute(
-        'CREATE TABLE songs(title TEXT PRIMARY KEY, artist TEXT, imgPath TEXT, lyrics TEXT, filePath TEXT)',
+        'CREATE TABLE songs(title TEXT PRIMARY KEY, artist TEXT, imgPath TEXT, lyrics TEXT, songPath TEXT)',
       );
     },
     version: 1,
@@ -38,7 +38,7 @@ main() async {
         artist: maps[i]['artist'] as String,
         imgPath: maps[i]['imgPath'] as String,
         lyrics: maps[i]['lyrics'] as String,
-        filePath: maps[i]['filePath'] as String,
+        songPath: maps[i]['songPath'] as String,
       );
     });
   }
@@ -69,30 +69,8 @@ main() async {
     artist: 'Jimmy Buffet',
     imgPath: 'assets/images/margaritaville.jpg',
     lyrics: 'tbd',
-    filePath: 'assets/songs/margaritaville.mp3',
+    songPath: 'assets/music/margaritaville.mp3',
   );
-
-  await insertSong(margaritaville);
-
-  print(await songs());
-
-  margaritaville = Song(
-    title: margaritaville.title,
-    artist: 'Jimmy Buffer',
-    imgPath: margaritaville.imgPath,
-    lyrics: margaritaville.lyrics,
-    filePath: margaritaville.filePath
-  );
-
-  print(await songs());
-
-  await updateSong(margaritaville);
-
-  print(await songs());
-
-  await deleteSong(margaritaville.title);
-
-  print(await songs());
 }//main
 
 
@@ -104,8 +82,8 @@ class Song {
   final String artist;
   final String imgPath;
   final String lyrics;
-  final String filePath;
-  const Song({required this.title, required this.artist, required this.imgPath , required this.lyrics, required this.filePath});
+  final String songPath;
+  const Song({required this.title, required this.artist, required this.imgPath , required this.lyrics, required this.songPath});
 
   Map<String, dynamic> toMap() {
     return {
@@ -113,13 +91,17 @@ class Song {
       'artist': artist,
       'imgPath': imgPath,
       'lyrics': lyrics,
-      'filePath': filePath,
+      'songPath': songPath,
     };
   }
 
   @override
   String toString() {
-    return 'Song{title: $title, artist: $artist, imgPath: $imgPath, lyrics: $lyrics, filePath: $filePath}';
+    return 'Song{title: $title, artist: $artist, imgPath: $imgPath, lyrics: $lyrics, songPath: $songPath}';
+  }
+
+  int CompareTo(Song other) {
+    return title.compareTo(other.title);
   }
 
 }

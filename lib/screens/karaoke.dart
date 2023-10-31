@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'dart:ui';
-import 'song_list.dart';
 import '../ascii_builder.dart';
 import '../lyricstyle.dart'; 
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:zwidget/zwidget.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'creeplyrics.dart';
+import '../database.dart';
 
 
 
@@ -20,7 +20,8 @@ class Karaoke extends StatefulWidget {
 
 
 class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
-  Song _song = const Song(title:"",artist:"",imgPath:"");
+  //empty song... scary
+  Song _song = const Song(title:"",artist:"",imgPath:"",lyrics: "",songPath: "");
   
   Widget build(BuildContext context) {
    // return titleCard("Brady Norum", _song.title, _song.artist);

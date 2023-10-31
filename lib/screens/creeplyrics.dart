@@ -1,4 +1,4 @@
-final normalLyric = """[00:23.50]When you were here before
+String normalLyric = """[00:23.50]When you were here before
 [00:24.10]
 [00:24.30]Couldn't look you in the eye
 [00:29.30]
