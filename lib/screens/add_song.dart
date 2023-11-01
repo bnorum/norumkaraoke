@@ -22,7 +22,6 @@ class AddSongState extends State<AddSong> {
   var songTitle = "";
   var songArtist = "";
 
-  //WIP: fix textfields not updating
   @override
   Widget build(BuildContext context) {
     return Scaffold(
