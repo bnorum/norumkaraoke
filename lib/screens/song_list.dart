@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:norumkaraoke/theme.dart';
 import 'karaoke.dart';
 import 'add_song.dart';
-import '../creeplyrics.dart';
 import 'dart:ui'; 
-import '../database.dart';
+import '../db_helper.dart';
 
 
 class SongList extends StatefulWidget {
@@ -16,11 +14,10 @@ class SongList extends StatefulWidget {
 
 
 class SongListState extends State<SongList> {
-  final _songList = [Song(title:"Margaritaville", artist:"Jimmy Buffet",imgPath: 'assets/images/margaritaville.jpg',lyrics: 'tbd', songPath: 'assets/music/margaritaville.mp3',),
-                     Song(title:"Hotel California", artist:"Eagles", imgPath:'assets/images/hotelcalifornia.jpg',lyrics: 'tbd', songPath: 'assets/music/margaritaville.mp3',),
-                     Song(title:"Diamonds from Sierra Leone",artist:"Kanye West", imgPath:'assets/images/diamondsfromsierraleone.jpg', lyrics: 'tbd', songPath: 'assets/music/margaritaville.mp3',),
-                     Song(title:"Be Nice 2 Me",artist:"Bladee", imgPath:'assets/images/icedancer.jpg', lyrics: 'tbd', songPath: 'assets/music/margaritaville.mp3',),
-                     Song(title:"Creep",artist:"Radiohead", imgPath:'assets/images/creep.jpg', lyrics: normalLyric, songPath: 'assets/music/creepi.mp3',)];
+  final _songList = [Song(title:"Margaritaville", artist:"Jimmy Buffet",imgPath: 'assets/images/margaritaville.jpg',lyrics: 'assets/lyrics/margaritaville.lrc', songPath: 'music/margaritaville.mp3',),
+                     Song(title:"Hotel California", artist:"Eagles", imgPath:'assets/images/hotelcalifornia.jpg',lyrics: 'assets/lyrics/hotelcalifornia.lrc', songPath: 'music/hotelcalifornia.mp3',),
+                     Song(title:"Be Nice 2 Me",artist:"Bladee", imgPath:'assets/images/icedancer.jpg', lyrics: 'tbd', songPath: 'music/benice2me.mp3',),
+                     Song(title:"Creep",artist:"Radiohead", imgPath:'assets/images/creep.jpg', lyrics: 'assets/lyrics/creep.lrc', songPath: 'music/creepi.mp3',)];
   
   Widget _buildList() {
     _songList.sort((a,b) => a.CompareTo(b));
@@ -57,7 +54,7 @@ class SongListState extends State<SongList> {
           ),
         ),
       trailing: const Text(">", style: TextStyle(color: Colors.white, fontSize:24)),
-      onTap: () { pushKaraoke(); }
+      onTap: () { pushKaraoke(s); }
     );
 
   } //_buildrow
@@ -81,10 +78,10 @@ class SongListState extends State<SongList> {
     );
   }//build
 
-  void pushKaraoke() {
+  void pushKaraoke(Song song) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => Karaoke()
+        builder: (context) => Karaoke(song:song)
       )
     );
 

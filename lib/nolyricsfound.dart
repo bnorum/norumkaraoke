@@ -1,0 +1,1 @@
+String normalLyric = """[00:00.00]no lyrics found""";

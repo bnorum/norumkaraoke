@@ -1,6 +1,6 @@
 
 import 'song_list.dart';
-import '../database.dart';
+import '../db_helper.dart';
 import 'package:flutter/material.dart';
 
 
@@ -21,6 +21,9 @@ class AddSongState extends State<AddSong> {
 
   var songTitle = "";
   var songArtist = "";
+  var songImgPath = "";
+  var songLyricsPath = "";
+  var songCoverPath = "";
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,7 @@ class AddSongState extends State<AddSong> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      const Text('Song Title'),
                       TextFormField(
                         style: const TextStyle(color: Colors.white),
                         onSaved: (String? value) {
@@ -52,12 +56,42 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
-                      Card(
-                        child: Padding(
-                          padding:EdgeInsets.all(8.0),
-                          child:Text(songTitle)
-                        )
-                      )
+                      const Text('Song Artist'),
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        onSaved: (String? value) {
+                          if (value != null) {
+                            songArtist = value;
+                          }
+                        },
+                      ),
+                      const Text('Image Path'),
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        onSaved: (String? value) {
+                          if (value != null) {
+                            songImgPath = value;
+                          }
+                        },
+                      ),
+                      const Text('Lyrics Path'),
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        onSaved: (String? value) {
+                          if (value != null) {
+                            songLyricsPath = value;
+                          }
+                        },
+                      ),
+                      const Text('Cover Path'),
+                      TextFormField(
+                        style: const TextStyle(color: Colors.white),
+                        onSaved: (String? value) {
+                          if (value != null) {
+                            songCoverPath = value;
+                          }
+                        },
+                      ),
                     ]
                   )
                   )]

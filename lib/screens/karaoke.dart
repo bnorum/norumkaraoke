@@ -6,24 +6,62 @@ import 'package:flutter/material.dart';
 import 'package:zwidget/zwidget.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
 import 'package:audioplayers/audioplayers.dart';
-import '../creeplyrics.dart';
-import '../database.dart';
-
+import 'package:flutter/services.dart' show rootBundle;
+import '../db_helper.dart';
+import '../nolyricsfound.dart';
 
 
 
 class Karaoke extends StatefulWidget {
+
+  const Karaoke({super.key, required this.song});
+  
+  final Song song;
+
   @override
-  KaraokeState createState() => KaraokeState();
+  KaraokeState createState() => KaraokeState(song);
 }
 
 
 
 class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
-  //empty song... scary
-
-  Song _song = const Song(title:"",artist:"",imgPath:"",lyrics: "",songPath: "");
+  late Song _song;
+  String lyricstemp = "a";
+  var lyricModel = LyricsModelBuilder.create()
+      .bindLyricToMain(normalLyric)
+      .getModel();
   
+  KaraokeState(Song song) {
+    this._song = song;
+
+  }
+    
+  String lyrics = "";
+
+  @override
+  void initState() {
+    super.initState();
+    initLyricModel();
+    getLyric(_song).then((value) {
+      setState(() {
+        lyrics = value;
+      });}
+      );
+  }
+
+  void initLyricModel() async {
+  lyrics = await getLyric(_song);
+  lyricModel = LyricsModelBuilder.create()
+      .bindLyricToMain(lyrics)
+      .getModel();
+  }
+  Future<String> getLyric(Song s) async {
+    return await rootBundle.loadString(s.lyrics);
+    //return File(directory.path + "/" + s.lyrics).readAsString();
+  }
+
+  
+
   Widget build(BuildContext context) {
    // return titleCard("Brady Norum", _song.title, _song.artist);
     return Scaffold(
@@ -127,9 +165,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
   bool useEnhancedLrc = false;
 
   var lyricUI = norumLyricUI(lineGap:2000);
-  var lyricModel = LyricsModelBuilder.create()
-      .bindLyricToMain(normalLyric)
-      .getModel();
+  
   
 
   Widget buildReaderWidget() {
@@ -184,7 +220,7 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
               ),
               onPressed: () async {
                 if (audioPlayer == null  && mounted) {
-                  audioPlayer = AudioPlayer()..play(AssetSource("music/creepi.mp3"));
+                  audioPlayer = AudioPlayer()..play(AssetSource(_song.songPath));
                   setState(() {
                     playing = true;
                     controlsOpacity = 0;
