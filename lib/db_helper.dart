@@ -70,18 +70,7 @@ class DatabaseHelper  {
 }
 
 
-void main() async {
-  DatabaseHelper dbHelper = DatabaseHelper();
-   final _songList = [Song(title:"Margaritaville", artist:"Jimmy Buffet",imgPath: 'assets/images/margaritaville.jpg',lyrics: 'assets/lyrics/margaritaville.lrc', songPath: 'music/margaritaville.mp3',),
-                     Song(title:"Hotel California", artist:"Eagles", imgPath:'assets/images/hotelcalifornia.jpg',lyrics: 'assets/lyrics/hotelcalifornia.lrc', songPath: 'music/hotelcalifornia.mp3',),
-                     Song(title:"Be Nice 2 Me",artist:"Bladee", imgPath:'assets/images/icedancer.jpg', lyrics: 'tbd', songPath: 'music/benice2me.mp3',),
-                     Song(title:"Creep",artist:"Radiohead", imgPath:'assets/images/creep.jpg', lyrics: 'assets/lyrics/creep.lrc', songPath: 'music/creepi.mp3',)];
 
-  for (var song in _songList) {
-
-    await dbHelper.insertSong(song);
-  }
-}
 
 class Song {
   final String title;

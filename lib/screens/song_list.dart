@@ -78,7 +78,15 @@ class SongListState extends State<SongList> {
             color: Theme.of(context).colorScheme.onPrimary,
           ),
         ),
-      trailing: const Text(">", style: TextStyle(color: Colors.white, fontSize:24)),
+      trailing: IconButton(
+        icon: const Icon(Icons.delete, color: Colors.white),
+        onPressed: () async {
+          await dbHelper.deleteSong(s.title);
+          setState(() {
+            _songList.remove(s);
+          });
+        },
+      ),
       onTap: () { pushKaraoke(s); }
     );
 
