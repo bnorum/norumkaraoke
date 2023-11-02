@@ -10,6 +10,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import '../db_helper.dart';
 import '../nolyricsfound.dart';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 
 
 class Karaoke extends StatefulWidget {
@@ -40,7 +42,11 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
 
   @override
   void initState() {
+ 
     super.initState();
+       if (kIsWeb){
+        lyricUI = norumLyricUI(otherMainSize: 40,defaultExtSize: 40,defaultSize: 40,lineGap:2000);
+        }
     initLyricModel();
     getLyric(_song).then((value) {
       setState(() {
@@ -163,7 +169,6 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
   AudioPlayer? audioPlayer;
   bool isTap = false;
   bool useEnhancedLrc = false;
-
   var lyricUI = norumLyricUI(lineGap:2000);
   
   

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lyric/lyric_ui/lyric_ui.dart';
 
+
 class norumLyricUI extends LyricUI {
   double defaultSize;
   double defaultExtSize;
@@ -14,7 +15,7 @@ class norumLyricUI extends LyricUI {
   HighlightDirection highlightDirection;
 
   norumLyricUI(
-      {this.defaultSize = 20,
+      { this.defaultSize = 20,
       this.defaultExtSize = 20,
       this.otherMainSize = 20,
       this.bias = 0.8,
@@ -67,3 +68,4 @@ class norumLyricUI extends LyricUI {
   @override
   HighlightDirection getHighlightDirection() => highlightDirection;
 }
+

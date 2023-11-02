@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'karaoke.dart';
 import 'add_song.dart';
 import 'dart:ui'; 
+import 'package:flutter/foundation.dart' show kIsWeb;
 import '../db_helper.dart';
 
 
@@ -34,12 +37,22 @@ class SongListState extends State<SongList> {
   @override
   void initState() {
     super.initState();
+    if (!kIsWeb){
     addBaseSongs();
     dbHelper.songs().then((value) {
       setState(() {
         _songList = value;
       });}
-      );
+      );}
+      else {
+        //for live demo only, will get a better solution for final. SQLite doesnt work in browser ):
+        _songList = [Song(title:"Margaritaville", artist:"Jimmy Buffet",imgPath: 'assets/images/margaritaville.jpg',lyrics: 'assets/lyrics/margaritaville.lrc', songPath: 'music/margaritaville.mp3',),
+                     Song(title:"Hotel California", artist:"Eagles", imgPath:'assets/images/hotelcalifornia.jpg',lyrics: 'assets/lyrics/hotelcalifornia.lrc', songPath: 'music/hotelcalifornia.mp3',),
+                     Song(title:"Be Nice 2 Me",artist:"Bladee", imgPath:'assets/images/icedancer.jpg', lyrics: 'tbd', songPath: 'music/benice2me.mp3',),
+                     Song(title:"Creep",artist:"Radiohead", imgPath:'assets/images/creep.jpg', lyrics: 'assets/lyrics/creep.lrc', songPath: 'music/creep.mp3',)];
+
+
+      }
   }
 
   
