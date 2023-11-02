@@ -24,6 +24,7 @@ class AddSongState extends State<AddSong> {
   var songImgPath = "";
   var songLyricsPath = "";
   var songCoverPath = "";
+  DatabaseHelper dbHelper = DatabaseHelper();
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +92,17 @@ class AddSongState extends State<AddSong> {
                             songCoverPath = value;
                           }
                         },
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Song s = Song(title: songTitle, artist: songArtist, imgPath: songImgPath, lyrics: songLyricsPath, songPath: songCoverPath);
+                          dbHelper.insertSong(s);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const SongList()),
+                          );
+                        },
+                        child: const Text('Submit'),
                       ),
                     ]
                   )

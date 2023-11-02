@@ -14,11 +14,36 @@ class SongList extends StatefulWidget {
 
 
 class SongListState extends State<SongList> {
-  final _songList = [Song(title:"Margaritaville", artist:"Jimmy Buffet",imgPath: 'assets/images/margaritaville.jpg',lyrics: 'assets/lyrics/margaritaville.lrc', songPath: 'music/margaritaville.mp3',),
+  List<Song> _songList = [];
+  DatabaseHelper dbHelper = DatabaseHelper();
+
+  void addBaseSongs() async {
+  DatabaseHelper dbHelper = DatabaseHelper();
+   final list = [Song(title:"Margaritaville", artist:"Jimmy Buffet",imgPath: 'assets/images/margaritaville.jpg',lyrics: 'assets/lyrics/margaritaville.lrc', songPath: 'music/margaritaville.mp3',),
                      Song(title:"Hotel California", artist:"Eagles", imgPath:'assets/images/hotelcalifornia.jpg',lyrics: 'assets/lyrics/hotelcalifornia.lrc', songPath: 'music/hotelcalifornia.mp3',),
                      Song(title:"Be Nice 2 Me",artist:"Bladee", imgPath:'assets/images/icedancer.jpg', lyrics: 'tbd', songPath: 'music/benice2me.mp3',),
-                     Song(title:"Creep",artist:"Radiohead", imgPath:'assets/images/creep.jpg', lyrics: 'assets/lyrics/creep.lrc', songPath: 'music/creepi.mp3',)];
+                     Song(title:"Creep",artist:"Radiohead", imgPath:'assets/images/creep.jpg', lyrics: 'assets/lyrics/creep.lrc', songPath: 'music/creep.mp3',)];
+
+    for (var song in list) {
+
+      await dbHelper.insertSong(song);
+      await dbHelper.updateSong(song);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    addBaseSongs();
+    dbHelper.songs().then((value) {
+      setState(() {
+        _songList = value;
+      });}
+      );
+  }
+
   
+
   Widget _buildList() {
     _songList.sort((a,b) => a.CompareTo(b));
     return ListView.builder(
