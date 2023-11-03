@@ -23,15 +23,24 @@ class AddSongState extends State<AddSong> {
   var songArtist = "";
   var songImgPath = "";
   var songLyricsPath = "";
-  var songCoverPath = "";
+  var songPath = "";
   DatabaseHelper dbHelper = DatabaseHelper();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: TextButton(
+          child: const Text("<", style: TextStyle(color: Colors.white, fontSize:24)),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        elevation: 0,
         centerTitle: true,
-        title: const Text('Norum_Karaoke'),
+        title: const Text('Add A Song'),
+        bottom: PreferredSize(preferredSize: const Size.fromHeight(5.0), child:Text("-" * (MediaQuery.of(context).size.width / 8).toInt(), style: const TextStyle(color: Colors.white)))
         ),
       body:SingleChildScrollView(
         child: Form(
@@ -48,8 +57,21 @@ class AddSongState extends State<AddSong> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('Song Title'),
+                      const Text('Song Title',style: TextStyle(color: Colors.white),),
+                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
                       TextFormField(
+                        decoration: 
+                          const InputDecoration(
+                            enabledBorder: 
+                              OutlineInputBorder(
+                                borderSide: 
+                                  BorderSide(
+                                    color: Color.fromRGBO(18, 18, 18, 0), 
+                                    width: 0.0),
+                              ),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter a Song Title',
+                          ),
                         style: const TextStyle(color: Colors.white),
                         onSaved: (String? value) {
                           if (value != null) {
@@ -57,8 +79,23 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
-                      const Text('Song Artist'),
+                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      
+                      const Text('Song Artist',style: TextStyle(color: Colors.white),),
+                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
                       TextFormField(
+                        decoration: 
+                          const InputDecoration(
+                            enabledBorder: 
+                              OutlineInputBorder(
+                                borderSide: 
+                                  BorderSide(
+                                    color: Color.fromRGBO(18, 18, 18, 0), 
+                                    width: 0.0),
+                              ),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter a Song Artist',
+                          ),
                         style: const TextStyle(color: Colors.white),
                         onSaved: (String? value) {
                           if (value != null) {
@@ -66,8 +103,23 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
-                      const Text('Image Path'),
+                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      
+                      const Text('Image Path',style: TextStyle(color: Colors.white),),
+                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
                       TextFormField(
+                        decoration: 
+                          const InputDecoration(
+                            enabledBorder: 
+                              OutlineInputBorder(
+                                borderSide: 
+                                  BorderSide(
+                                    color: Color.fromRGBO(18, 18, 18, 0), 
+                                    width: 0.0),
+                              ),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter an image path',
+                          ),
                         style: const TextStyle(color: Colors.white),
                         onSaved: (String? value) {
                           if (value != null) {
@@ -75,8 +127,23 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
-                      const Text('Lyrics Path'),
+                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      
+                      const Text('Lyrics Path',style: TextStyle(color: Colors.white),),
+                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
                       TextFormField(
+                        decoration: 
+                          const InputDecoration(
+                            enabledBorder: 
+                              OutlineInputBorder(
+                                borderSide: 
+                                  BorderSide(
+                                    color: Color.fromRGBO(18, 18, 18, 0), 
+                                    width: 0.0),
+                              ),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter a lyric path',
+                          ),
                         style: const TextStyle(color: Colors.white),
                         onSaved: (String? value) {
                           if (value != null) {
@@ -84,18 +151,33 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
-                      const Text('Cover Path'),
+                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      
+                      const Text('Cover Path',style: TextStyle(color: Colors.white),),
+                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
                       TextFormField(
+                        decoration: 
+                          const InputDecoration(
+                            enabledBorder: 
+                              OutlineInputBorder(
+                                borderSide: 
+                                  BorderSide(
+                                    color: Color.fromRGBO(18, 18, 18, 0), 
+                                    width: 0.0),
+                              ),
+                            border: OutlineInputBorder(),
+                            hintText: 'Enter an song path',
+                          ),
                         style: const TextStyle(color: Colors.white),
                         onSaved: (String? value) {
                           if (value != null) {
-                            songCoverPath = value;
+                            songPath = value;
                           }
                         },
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          Song s = Song(title: songTitle, artist: songArtist, imgPath: songImgPath, lyrics: songLyricsPath, songPath: songCoverPath);
+                          Song s = Song(title: songTitle, artist: songArtist, imgPath: songImgPath, lyrics: songLyricsPath, songPath: songPath);
                           dbHelper.insertSong(s);
                           Navigator.push(
                             context,
