@@ -31,7 +31,7 @@ class AddSongState extends State<AddSong> {
     return Scaffold(
       appBar: AppBar(
         leading: TextButton(
-          child: const Text("<", style: TextStyle(color: Colors.white, fontSize:24)),
+          child: const Text("<", style: TextStyle(color: Colors.white, fontSize:14)),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -39,7 +39,7 @@ class AddSongState extends State<AddSong> {
         backgroundColor: const Color.fromARGB(0, 0, 0, 0),
         elevation: 0,
         centerTitle: true,
-        title: const Text('Add A Song'),
+        title: const Text('Add A Song', style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14)),
         bottom: PreferredSize(preferredSize: const Size.fromHeight(5.0), child:Text("-" * (MediaQuery.of(context).size.width / 8).toInt(), style: const TextStyle(color: Colors.white)))
         ),
       body:SingleChildScrollView(
@@ -57,7 +57,7 @@ class AddSongState extends State<AddSong> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text('Song Title',style: TextStyle(color: Colors.white),),
+                      const Text('Song Title',style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal)),
                       Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
                       TextFormField(
                         decoration: 
@@ -72,7 +72,7 @@ class AddSongState extends State<AddSong> {
                             border: OutlineInputBorder(),
                             hintText: 'Enter a Song Title',
                           ),
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
                         onSaved: (String? value) {
                           if (value != null) {
                             songTitle = value;
@@ -96,7 +96,7 @@ class AddSongState extends State<AddSong> {
                             border: OutlineInputBorder(),
                             hintText: 'Enter a Song Artist',
                           ),
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
                         onSaved: (String? value) {
                           if (value != null) {
                             songArtist = value;
@@ -120,7 +120,7 @@ class AddSongState extends State<AddSong> {
                             border: OutlineInputBorder(),
                             hintText: 'Enter an image path',
                           ),
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
                         onSaved: (String? value) {
                           if (value != null) {
                             songImgPath = value;
@@ -144,7 +144,7 @@ class AddSongState extends State<AddSong> {
                             border: OutlineInputBorder(),
                             hintText: 'Enter a lyric path',
                           ),
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
                         onSaved: (String? value) {
                           if (value != null) {
                             songLyricsPath = value;
@@ -168,7 +168,7 @@ class AddSongState extends State<AddSong> {
                             border: OutlineInputBorder(),
                             hintText: 'Enter an song path',
                           ),
-                        style: const TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
                         onSaved: (String? value) {
                           if (value != null) {
                             songPath = value;

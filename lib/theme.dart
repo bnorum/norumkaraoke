@@ -16,12 +16,12 @@ class DarkGreenTheme {
     textTheme: const TextTheme(
       titleLarge: TextStyle(
         color: textColor,
-        fontSize: 20.0,
+        fontSize: 14,
         fontWeight: FontWeight.bold,
       ),
       bodyLarge: TextStyle(
         color: textColor,
-        fontSize: 18.0,
+        fontSize: 14,
       ),
       bodyMedium: TextStyle(
         color: secondaryTextColor,
