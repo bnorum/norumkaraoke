@@ -176,15 +176,17 @@ class AddSongState extends State<AddSong> {
                         },
                       ),
                       ElevatedButton(
+                      style:ButtonStyle(elevation:MaterialStatePropertyAll<double>(0),backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(0, 0, 0, 0))),
+                      child: const Column(
+                        children: [Text('/‾‾‾\\'),Text('| +♪ |'),Text('\\___/')],
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                      ),
                         onPressed: () {
                           Song s = Song(title: songTitle, artist: songArtist, imgPath: songImgPath, lyrics: songLyricsPath, songPath: songPath);
                           dbHelper.insertSong(s);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const SongList()),
-                          );
+                          Navigator.pop(context);
                         },
-                        child: const Text('Submit'),
                       ),
                     ]
                   )
