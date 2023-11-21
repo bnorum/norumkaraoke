@@ -1,7 +1,8 @@
-
-import 'song_list.dart';
+import 'package:file_picker/file_picker.dart';
 import '../db_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 
 
@@ -25,6 +26,9 @@ class AddSongState extends State<AddSong> {
   var songLyricsPath = "";
   var songPath = "";
   DatabaseHelper dbHelper = DatabaseHelper();
+  FilePickerResult? resultImg;
+  FilePickerResult? resultSong;
+  FilePickerResult? resultLyrics; //temporary!
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,7 @@ class AddSongState extends State<AddSong> {
         elevation: 0,
         centerTitle: true,
         title: const Text('Add A Song', style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14)),
-        bottom: PreferredSize(preferredSize: const Size.fromHeight(5.0), child:Text("-" * (MediaQuery.of(context).size.width / 8).toInt(), style: const TextStyle(color: Colors.white)))
+        bottom: PreferredSize(preferredSize: const Size.fromHeight(5.0), child:Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1), style: const TextStyle(color: Colors.white)))
         ),
       body:SingleChildScrollView(
         child: Form(
@@ -58,7 +62,7 @@ class AddSongState extends State<AddSong> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Text('Song Title',style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal)),
-                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       TextFormField(
                         decoration: 
                           const InputDecoration(
@@ -79,10 +83,10 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
-                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       
                       const Text('Song Artist',style: TextStyle(color: Colors.white),),
-                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       TextFormField(
                         decoration: 
                           const InputDecoration(
@@ -103,10 +107,11 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
-                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       
                       const Text('Image Path',style: TextStyle(color: Colors.white),),
-                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
+                      /*
                       TextFormField(
                         decoration: 
                           const InputDecoration(
@@ -127,10 +132,54 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
-                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      */
+                      //FIX THIS!!!
+                      ElevatedButton(
+                        onPressed: () async {
+                          Directory dir = await getApplicationDocumentsDirectory();
+                          final String appdirpath = dir.path;
+                          
+                          resultImg = await FilePicker.platform.pickFiles(
+                            allowMultiple: false,
+                            allowedExtensions: ['png', 'jpg', 'jpeg'],
+                            type: FileType.custom,
+                          );
+                          if (resultImg != null) {
+                            PlatformFile file = resultImg!.files.first;
+                            final File toFile = File(file.path!);
+                            final File copiedFile = await toFile.copy('$appdirpath/${file.name}');
+                            setState(() {
+                              songImgPath = copiedFile.path;
+                            });
+                          } else {
+                            print("No file selected");
+                          }
+                        }, 
+                        child: Text("Select Image from Files")),
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       
-                      const Text('Lyrics Path',style: TextStyle(color: Colors.white),),
-                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      const Text('Lyrics Path (only if you know what you\'re doing)',style: TextStyle(color: Colors.white),),
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
+                      ElevatedButton(
+                        onPressed: () async {
+                          Directory dir = await getApplicationDocumentsDirectory();
+                          final String appdirpath = dir.path;
+                          resultLyrics = await FilePicker.platform.pickFiles(
+                            allowMultiple: false,
+                          );
+                          if (resultLyrics != null) {
+                            PlatformFile file = resultLyrics!.files.first;
+                            final File toFile = File(file.path!);
+                            final File copiedFile = await toFile.copy('$appdirpath/${file.name}');
+                            setState(() {
+                              songLyricsPath = copiedFile.path;
+                            });
+                          } else {
+                            print("No file selected");
+                          }
+                        }, 
+                        child: Text("Select .lrc from Files")),
+                      /*
                       TextFormField(
                         decoration: 
                           const InputDecoration(
@@ -151,10 +200,33 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
-                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      */
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       
-                      const Text('Cover Path',style: TextStyle(color: Colors.white),),
-                      Text("-" * (MediaQuery.of(context).size.width / 8).toInt(),style: const TextStyle(color: Colors.white),),
+                      const Text('Song Path',style: TextStyle(color: Colors.white),),
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
+                      ElevatedButton(
+                        onPressed: () async {
+                          Directory dir = await getApplicationDocumentsDirectory();
+                          final String appdirpath = dir.path;
+                          resultSong = await FilePicker.platform.pickFiles(
+                            allowMultiple: false,
+                            allowedExtensions: ['mp3'],
+                            type: FileType.custom,
+                          );
+                          if (resultSong != null) {
+                            PlatformFile file = resultSong!.files.first;
+                            final File toFile = File(file.path!);
+                            final File copiedFile = await toFile.copy('$appdirpath/${file.name}');
+                            setState(() {
+                              songPath = copiedFile.path;
+                            });
+                          } else {
+                            print("No file selected");
+                          }
+                        }, 
+                        child: Text("Select Song from Files")),
+                      /*
                       TextFormField(
                         decoration: 
                           const InputDecoration(
@@ -175,6 +247,9 @@ class AddSongState extends State<AddSong> {
                           }
                         },
                       ),
+                      */
+                      Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
+                      
                       ElevatedButton(
                       style:ButtonStyle(elevation:MaterialStatePropertyAll<double>(0),backgroundColor: MaterialStatePropertyAll<Color>(Color.fromARGB(0, 0, 0, 0))),
                       child: const Column(
@@ -182,6 +257,7 @@ class AddSongState extends State<AddSong> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                       ),
+                      
                         onPressed: () {
                           Song s = Song(title: songTitle, artist: songArtist, imgPath: songImgPath, lyrics: songLyricsPath, songPath: songPath);
                           dbHelper.insertSong(s);

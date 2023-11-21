@@ -62,7 +62,7 @@ class SongListState extends State<SongList> {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemBuilder: (context, item) {
-        if(item == 0 || item == 1) return const SizedBox(height:37);
+        if(item == 0 || item == 1) return const SizedBox(height:45);
         if(item.isOdd) return Text("/" * (MediaQuery.of(context).size.width / 8).toInt(), style: TextStyle(color: Colors.white));
         final index = item ~/ 2;
 
@@ -76,10 +76,12 @@ class SongListState extends State<SongList> {
   
   
   Widget _buildRow(Song s){
+    Image SongImage =Image.file(File(s.imgPath));
+    if (s.imgPath.contains("assets")) SongImage =Image.asset(s.getImgPath());
     return ListTile(
       leading:ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: Image.asset(s.getImgPath())
+        child: SongImage
       ),
       title: Text(s.title, style: TextStyle(fontSize: 14,color: Colors.white, fontWeight: FontWeight.normal)
         ),
@@ -103,8 +105,8 @@ class SongListState extends State<SongList> {
     return Scaffold (
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        toolbarHeight: 86,
-        backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+        toolbarHeight: 80,
+        backgroundColor: Color.fromARGB(255, 20,20,20),
         elevation: 0,
         centerTitle: true,
         //title: const Text('--== Norum_Karaoke ==--', style:TextStyle(fontSize: 14,color: Colors.white, fontWeight: FontWeight.normal)),
@@ -114,12 +116,12 @@ class SongListState extends State<SongList> {
               fontWeight: FontWeight.normal, 
               fontFeatures: [FontFeature.tabularFigures()]), 'assets/ascii/stick_letters.flf'
             ),
-        bottom: PreferredSize(preferredSize: const Size.fromHeight(5.0), child:Align(alignment:Alignment.topLeft,child:Text("  " +"/" * (MediaQuery.of(context).size.width / 8).toInt(), style: const TextStyle(color: Colors.white))))
+        bottom: PreferredSize(preferredSize: const Size.fromHeight(1.0), child:Align(alignment:Alignment.topLeft,child:Text("  " +"/" * (MediaQuery.of(context).size.width / 8).toInt(), style: const TextStyle(color: Colors.white))))
         ),
     floatingActionButton: FloatingActionButton(
       shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 0,
-      backgroundColor: const Color.fromARGB(0, 0, 0, 0),
+      backgroundColor: Color.fromARGB(255,20,20,20),
       child: const Column(
         children: [Text('/‾‾‾\\'),Text('| +♪ |'),Text('\\___/')],
         mainAxisAlignment: MainAxisAlignment.center,

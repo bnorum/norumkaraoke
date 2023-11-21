@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:ui';
+import 'dart:io';
 import '../ascii_builder.dart';
 import '../lyricstyle.dart'; 
 import 'package:flutter/material.dart';
@@ -225,7 +226,9 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
               ),
               onPressed: () async {
                 if (audioPlayer == null  && mounted) {
-                  audioPlayer = AudioPlayer()..play(AssetSource(_song.songPath));
+                  var source = DeviceFileSource(_song.songPath);
+                  if (!_song.songPath.contains("app_flutter")) {audioPlayer = AudioPlayer()..play(AssetSource(_song.songPath)); }
+                  else audioPlayer = AudioPlayer()..play(source);
                   setState(() {
                     playing = true;
                     controlsOpacity = 0;
