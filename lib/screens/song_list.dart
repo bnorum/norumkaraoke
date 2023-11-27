@@ -43,9 +43,11 @@ class SongListState extends State<SongList> {
       setState(() {
         _songList = value;
       });}
-      );}
+      );
+    } //initial insert for base songs (removed on final release these are just my demos)
       else {
         //for live demo only, will get a better solution for final. SQLite doesnt work in browser ):
+        //goal is ultimately saving songs as json or zip files that can be uploaded? not sure yet big shoes to fill
         _songList = [const Song(title:"Margaritaville", artist:"Jimmy Buffet",imgPath: 'assets/images/margaritaville.jpg',lyrics: 'assets/lyrics/margaritaville.lrc', songPath: 'music/margaritaville.mp3',),
                      const Song(title:"Hotel California", artist:"Eagles", imgPath:'assets/images/hotelcalifornia.jpg',lyrics: 'assets/lyrics/hotelcalifornia.lrc', songPath: 'music/hotelcalifornia.mp3',),
                      const Song(title:"Be Nice 2 Me",artist:"Bladee", imgPath:'assets/images/icedancer.jpg', lyrics: 'tbd', songPath: 'music/benice2me.mp3',),
@@ -59,6 +61,7 @@ class SongListState extends State<SongList> {
 
   Widget _buildList() {
     _songList.sort((a,b) => a.CompareTo(b));
+    
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemBuilder: (context, item) {
@@ -93,6 +96,7 @@ class SongListState extends State<SongList> {
           await dbHelper.deleteSong(s.title);
           setState(() {
             _songList.remove(s);
+            
           });
         },
       ),
