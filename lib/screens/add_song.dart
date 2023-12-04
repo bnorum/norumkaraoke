@@ -158,7 +158,7 @@ class AddSongState extends State<AddSong> {
                         child: Text("Select Image from Files")),
                       Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       
-                      const Text('Lyrics Path (only if you know what you\'re doing)',style: TextStyle(color: Colors.white),),
+                      const Text('Lyrics Upload [temporary]',style: TextStyle(color: Colors.white),),
                       Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       ElevatedButton(
                         onPressed: () async {

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'karaoke.dart';
 import 'add_song.dart';
+import 'sender.dart';
 import 'dart:ui'; 
 import 'package:flutter/foundation.dart' show kIsWeb;
 import '../db_helper.dart';
@@ -100,7 +101,8 @@ class SongListState extends State<SongList> {
           });
         },
       ),
-      onTap: () { pushKaraoke(s); }
+      onTap: () { pushKaraoke(s); },
+      onLongPress: () {pushSend(s);},
     );
 
   } //_buildrow
@@ -145,6 +147,15 @@ class SongListState extends State<SongList> {
     );
 
   }
+  void pushSend(Song song) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => Sender(song:song)
+      )
+    );
+
+  }
+
   void pushAddSong() { 
     Navigator.of(context).push(
       MaterialPageRoute(

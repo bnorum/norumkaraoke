@@ -52,6 +52,9 @@ dependencies:
   path_provider: ^2.1.1
   foundation: ^0.0.5
   file_picker: ^6.1.1
+  firebase_core: ^2.24.0
+  cloud_firestore: ^4.13.3
+  firebase_storage: ^11.5.3
 
 dev_dependencies:
   flutter_test:

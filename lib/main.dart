@@ -6,7 +6,17 @@ import 'dart:async';
 import 'dart:ui';
 import 'ascii_builder.dart';
 import 'screens/karaoke.dart';
-void main() { runApp(MyApp());}
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
+
+void main() async { 
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
+}
 
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -18,6 +28,7 @@ class MyApp extends StatefulWidget {
     return new MyAppState();
 
   }
+  
 
 }
 class MyAppState extends State<MyApp> {

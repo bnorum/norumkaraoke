@@ -63,8 +63,8 @@ class KaraokeState extends State<Karaoke> with SingleTickerProviderStateMixin {
       .getModel();
   }
   Future<String> getLyric(Song s) async {
-    return await rootBundle.loadString(s.lyrics);
-    //return File(directory.path + "/" + s.lyrics).readAsString();
+    if (s.lyrics.contains("assets")) return await rootBundle.loadString(s.lyrics);
+    else return File(s.lyrics).readAsString();
   }
 
   
