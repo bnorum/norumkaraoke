@@ -67,7 +67,7 @@ class SongListState extends State<SongList> {
       padding: const EdgeInsets.all(16),
       itemBuilder: (context, item) {
         if(item == 0 || item == 1) return const SizedBox(height:45);
-        if(item.isOdd) return Text("/" * (MediaQuery.of(context).size.width / 8).toInt(), style: TextStyle(color: Colors.white));
+        if(item.isOdd) return Text("/" * (MediaQuery.of(context).size.width / 8.1).toInt(), style: TextStyle(color: Colors.white));
         final index = item ~/ 2;
 
         if (index < _songList.length+1) {return _buildRow(_songList[index-1]);}
@@ -133,7 +133,7 @@ class SongListState extends State<SongList> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
       ),
-      onPressed: () {pushAddSong();},
+      onPressed: () {pushAddSong(); setState(){}},
     ),
       body: _buildList()
     );

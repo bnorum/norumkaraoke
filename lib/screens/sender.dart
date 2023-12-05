@@ -30,6 +30,8 @@ class SenderState extends State<Sender> {
   CollectionReference _reference = FirebaseFirestore.instance.collection('codexd');
   GlobalKey<FormState> key = GlobalKey();
 
+
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,25 +66,12 @@ class SenderState extends State<Sender> {
             TextButton(
               child: const Text("Upload"),
               onPressed: () async {
-                final lyricFile = File(_song.lyrics);
                 final soundFile = File(_song.songPath); 
                 Reference referenceRoot = FirebaseStorage.instance.ref();
                 Reference referenceDirCode = referenceRoot.child(code.toString());
-                Reference referenceLyricToUpload = referenceDirCode.child(lyricFile.path.split('/').last);
-                
                 Reference referenceSoundToUpload = referenceDirCode.child(soundFile.path.split('/').last);
 
-                //Handle errors/success
-                try {
-                  //Store the file
-                  await referenceLyricToUpload.putFile(lyricFile);
-                  //Success: get the download URL
-                  lyricUrl = await referenceLyricToUpload.getDownloadURL();
-                } catch (error) {
-                  //Some error occurred
-                  print(error);
-                }
-
+                
                 try {
                   //Store the file
                   await referenceSoundToUpload.putFile(soundFile);
@@ -98,8 +87,10 @@ class SenderState extends State<Sender> {
               child: const Text("Send"),
               onPressed: () async {
                       //Create a Map of data
+                      final lyricFile = File(_song.lyrics);
+                      print(lyricFile.toString());
                       Map<String, String> dataToSend = {
-                        'lyric': lyricUrl,
+                        'lyric': await lyricFile.readAsString(), //just dump contents of lyric file lol
                         'sound': soundUrl,
                       };
 
