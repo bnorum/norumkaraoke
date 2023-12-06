@@ -111,29 +111,7 @@ class AddSongState extends State<AddSong> {
                       
                       const Text('Image Path',style: TextStyle(color: Colors.white),),
                       Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
-                      /*
-                      TextFormField(
-                        decoration: 
-                          const InputDecoration(
-                            enabledBorder: 
-                              OutlineInputBorder(
-                                borderSide: 
-                                  BorderSide(
-                                    color: Color.fromRGBO(18, 18, 18, 0), 
-                                    width: 0.0),
-                              ),
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter an image path',
-                          ),
-                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
-                        onSaved: (String? value) {
-                          if (value != null) {
-                            songImgPath = value;
-                          }
-                        },
-                      ),
-                      */
-                      //FIX THIS!!!
+                      
                       ElevatedButton(
                         onPressed: () async {
                           Directory dir = await getApplicationDocumentsDirectory();
@@ -179,28 +157,7 @@ class AddSongState extends State<AddSong> {
                           }
                         }, 
                         child: Text("Select .lrc from Files")),
-                      /*
-                      TextFormField(
-                        decoration: 
-                          const InputDecoration(
-                            enabledBorder: 
-                              OutlineInputBorder(
-                                borderSide: 
-                                  BorderSide(
-                                    color: Color.fromRGBO(18, 18, 18, 0), 
-                                    width: 0.0),
-                              ),
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter a lyric path',
-                          ),
-                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
-                        onSaved: (String? value) {
-                          if (value != null) {
-                            songLyricsPath = value;
-                          }
-                        },
-                      ),
-                      */
+                      
                       Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       
                       const Text('Song Path',style: TextStyle(color: Colors.white),),
@@ -226,28 +183,7 @@ class AddSongState extends State<AddSong> {
                           }
                         }, 
                         child: Text("Select Song from Files")),
-                      /*
-                      TextFormField(
-                        decoration: 
-                          const InputDecoration(
-                            enabledBorder: 
-                              OutlineInputBorder(
-                                borderSide: 
-                                  BorderSide(
-                                    color: Color.fromRGBO(18, 18, 18, 0), 
-                                    width: 0.0),
-                              ),
-                            border: OutlineInputBorder(),
-                            hintText: 'Enter an song path',
-                          ),
-                        style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.normal),
-                        onSaved: (String? value) {
-                          if (value != null) {
-                            songPath = value;
-                          }
-                        },
-                      ),
-                      */
+                      
                       Text("-" * ((MediaQuery.of(context).size.width ~/ 8)-1),style: const TextStyle(color: Colors.white),),
                       
                       ElevatedButton(

@@ -4,13 +4,12 @@ import 'dart:io';
 import '../ascii_builder.dart';
 import '../lyricstyle.dart'; 
 import 'package:flutter/material.dart';
-import 'package:zwidget/zwidget.dart';
+import 'package:zwidget/zwidget.dart'; //no longer need LOL
 import 'package:flutter_lyric/lyrics_reader.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import '../db_helper.dart';
 import '../nolyricsfound.dart';
-
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 
