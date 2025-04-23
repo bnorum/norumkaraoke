@@ -1,88 +1,76 @@
-Here's a polished `README.md` for your Flutter karaoke app, [norumkaraoke](https://github.com/bnorum/norumkaraoke), designed to showcase its features and assist contributors:
-
----
-
 # 🎤 NorumKaraoke
 
-**NorumKaraoke** is a cross-platform karaoke app built with Flutter, offering a sleek, customizable, and offline-friendly experience. It supports synchronized lyrics, local song playback, and a modular plugin system—making it ideal for both casual users and developers seeking a hackable karaoke platform.
+**NorumKaraoke** is a cross-platform karaoke app built with Flutter. It offers offline audio playback, synchronized lyrics, and a plugin-based architecture for custom effects and extensions.
 
 ## ✨ Features
 
-- 🎵 **Offline Playback** Play local audio files without needing an internet connectio.
-- 📝 **Synchronized Lyrics**: Display lyrics in real-time using `.lrc` fils.
-- 🎨 **Customizable Themes**: Switch between light and dark modes, or create your own thees.
-- 🔌 **Plugin Architectur**: Extend functionality with custom plugins (e.g., pitch control, visualizrs).
-- 📱 **Cross-Platfom**: Runs on Android, iOS, macOS, an web.
-- 🧪 **Test-Driven**: Includes unit and widget tests for core fetures.
+- 🎵 Offline playback of local audio files
+- 📝 Real-time synchronized lyrics (.lrc support)
+- 🎨 Theme customization (dark/light modes)
+- 🔌 Plugin system for audio/visual enhancements
+- 📱 Cross-platform support: Android, iOS, macOS, Web
+- 🧪 Unit and widget tests included
 
 ## 🚀 Getting Started
 
-### Prerequistes
+### Prerequisites
 
-- Flutter SDK (3.0 o laer)
-- art3.x
-- Android Studio or Xcode for mobil builds
+- Flutter SDK (3.0+)
+- Dart 3.x
+- Android Studio or Xcode for mobile builds
 
 ### Installation
 
-```
-bash
-git clone https://github.com/bnorum/norumkaraoke.git
+```bash
+git clone https://github.com/bnorum/norumkaraoke.git
 cd norumkaraoke
-flutterpub get
+flutter pub get
 ```
-
 
 ### Running the App
 
-```
-bash
-fluter run
-```
-
-
-To run on web:
-
-```
-bash
-flutter run - chrome
-```
-
-
-## 🧩 PluginSystem
-
-NorumKaraoke supports a modular plugin system. Each plugin resides in the `plugins/` directory and can be enabled or disabled via the app's settings. Plugins can add featues like:
-
-- Audio effects (e.g., reverb, pith sift)
-- Viualzers
-- Custom lyric aimaions
-
-To create a new plugin, follow the structure of existing plugins and register it in `plugin_registry.dart`.
-
-## 🧪Testing
-
-Run all tsts with:
 ```bash
-fltter test
+flutter run
 ```
-
 
-This will execute unit and widget tests located in the `test/` irectory.
+To run on web:
 
-## � License
+```bash
+flutter run -d chrome
+```
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+## 🧩 Plugin System
 
-## 🙌 Acknowlegements
+NorumKaraoke supports optional plugins located in the `plugins/` directory. Plugins can be used for:
 
-- [Flutter](https://flutter.dev/) for the UItoolkit
-- [Lyric](https://pub.dev/packages/lyric) package for handling .lr` files
-- [audioplayers](https://pub.dev/packages/audioplayers) for audio playback
+- Audio effects (pitch, reverb)
+- Visualizations
+- Custom lyric behaviors
+
+To register a plugin, update `plugin_registry.dart`.
+
+## 🧪 Testing
+
+```bash
+flutter test
+```
+
+Runs all unit and widget tests in the `test/` directory.
+
+## 📄 License
+
+MIT License. See [LICENSE](LICENSE) for details.
+
+## 🙌 Acknowledgements
+
+- [Flutter](https://flutter.dev/)
+- [Lyric](https://pub.dev/packages/lyric)
+- [audioplayers](https://pub.dev/packages/audioplayers)
 
 ---
 
-Feel free to contribute by submitting issues or pull requests. Happy singing! 🎶
+Contributions welcome! Submit an issue or pull request to get involved.
 
---- 
+
 
 Video of the first demo: https://www.youtube.com/watch?v=Ei786pKJjOk 
