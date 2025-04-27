@@ -39,15 +39,6 @@ To run on web:
 flutter run -d chrome
 ```
 
-## 🧩 Plugin System
-
-NorumKaraoke supports optional plugins located in the `plugins/` directory. Plugins can be used for:
-
-- Audio effects (pitch, reverb)
-- Visualizations
-- Custom lyric behaviors
-
-To register a plugin, update `plugin_registry.dart`.
 
 ## 🧪 Testing
 
